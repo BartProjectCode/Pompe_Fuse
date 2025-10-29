@@ -622,7 +622,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!4 &1003717469
 Transform:
   m_ObjectHideFlags: 0
@@ -702,10 +702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocketRb: {fileID: 0}
-  force: 100
-  maxVelocity: 10
   canBoost: 0
-  sensToBoost: 6
   sensToTorque: 2
   smoke: {fileID: 8437876668500669219, guid: f503dcbb55f878a4d9f99e2093b742cd, type: 3}
   offset: 1

@@ -4,11 +4,11 @@ using UnityEngine;
 public class PumpToBoost : MonoBehaviour
 {
     public Rigidbody2D rocketRb;
-    public float force;
-    public float maxVelocity = 10f;
+    private float force = 0.1f;
+    private float maxVelocity = 15f;
     public bool canBoost;
-    public float sensToBoost = 6f;
-    public float sensToTorque = 2f;
+    private float sensToBoost = 2f;
+    public float sensToTorque = 0.1f;
     public GameObject smoke;
     public float offset = 1f;
     public float total;
@@ -59,18 +59,27 @@ public class PumpToBoost : MonoBehaviour
         if (mouseY >= sensToBoost)
         {
             // maxVelocity = 10f;
-            rocketRb.AddForce(transform.up * force, ForceMode2D.Impulse);
+            rocketRb.AddForce(transform.up * (mouseY * force), ForceMode2D.Impulse);
             Instantiate(smoke, smokeSpawnPoint, gameObject.transform.rotation);
             canBoost = false;
         }
 
+        // if (mouseX >= sensToTorque)
+        // {
+        //     rocketRb.AddTorque(1f, ForceMode2D.Force);
+        // }
+        // else if (mouseX <= -sensToTorque)
+        // {
+        //     rocketRb.AddTorque(-1f, ForceMode2D.Force);
+        // }
+        
         if (mouseX >= sensToTorque)
         {
-            rocketRb.AddTorque(1f, ForceMode2D.Force);
+            transform.Rotate(0, 0, 1);
         }
         else if (mouseX <= -sensToTorque)
         {
-            rocketRb.AddTorque(-1f, ForceMode2D.Force);
+            transform.Rotate(0, 0, -1);
         }
         // else
         // {
