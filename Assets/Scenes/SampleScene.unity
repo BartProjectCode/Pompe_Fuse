@@ -2099,7 +2099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocketRb: {fileID: 0}
   canBoost: 0
-  sensToTorque: 1
+  sensToTorque: 0.5
   smoke: {fileID: 8437876668500669219, guid: f503dcbb55f878a4d9f99e2093b742cd, type: 3}
   offset: 1
   total: 0
