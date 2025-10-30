@@ -13,7 +13,10 @@ public class PumpToBoost : MonoBehaviour
     public float offset = 1f;
     public float total;
     private float totalMax = 1f;
-    
+    private float timerBeforeVelocity = 3f;
+
+
+    private bool canDivide;
     public float totalBoost;
     
     public LimitBounds limitBounds;
@@ -28,6 +31,7 @@ public class PumpToBoost : MonoBehaviour
 
     private void Update()
     {
+        
         float mouseY = Input.GetAxis("Mouse Y");
         float mouseX = Input.GetAxis("Mouse X");
 
@@ -73,11 +77,11 @@ public class PumpToBoost : MonoBehaviour
         
         if (mouseX >= sensToTorque && timeToPump.bPumpTime == false)
         {
-            transform.Rotate(0, 0, 1);
+            transform.Rotate(0, 0, -1);
         }
         else if (mouseX <= -sensToTorque && timeToPump.bPumpTime == false)
         {
-            transform.Rotate(0, 0, -1);
+            transform.Rotate(0, 0, 1);
         }
 
         
@@ -93,6 +97,20 @@ public class PumpToBoost : MonoBehaviour
             rocketRb.AddForce(Vector3.up * (force * totalBoost), ForceMode2D.Impulse);
             totalBoost = 0;
             timeToPump.activateBoost = false;
+            canDivide = true;
+            timerBeforeVelocity = 3f;
+        }
+
+        if (timerBeforeVelocity > 0)
+        {
+            timerBeforeVelocity -= Time.deltaTime;
+        }
+
+        if (timerBeforeVelocity < 0 && canDivide)
+        {
+            canDivide = false;
+            timerBeforeVelocity = 0;
+            maxVelocity /= 3f;
         }
         
         
