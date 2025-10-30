@@ -25,7 +25,11 @@ public class PumpToBoost : MonoBehaviour
 
     private void Start()
     {
-        Screen.lockCursor = true;
+        // Screen.lockCursor = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         rocketRb = GetComponent<Rigidbody2D>();
         limitBounds = GetComponent<LimitBounds>();
         timeToPump = GetComponent<TimeToPump>();
