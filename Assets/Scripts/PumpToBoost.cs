@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PumpToBoost : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class PumpToBoost : MonoBehaviour
 
     private void Start()
     {
+        Screen.lockCursor = true;
         rocketRb = GetComponent<Rigidbody2D>();
         limitBounds = GetComponent<LimitBounds>();
         timeToPump = GetComponent<TimeToPump>();
@@ -31,6 +33,12 @@ public class PumpToBoost : MonoBehaviour
 
     private void Update()
     {
+
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // Scene.LoadScene
+        }
         
         float mouseY = Input.GetAxis("Mouse Y");
         float mouseX = Input.GetAxis("Mouse X");
