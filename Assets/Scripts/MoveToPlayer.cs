@@ -9,6 +9,7 @@ public class MoveToPlayer : MonoBehaviour
     
     private void LateUpdate()
     {
-        transform.position = new Vector3( player.transform.position.x, player.transform.position.y + offsetY, cameraZLayer);
+        // transform.position = new Vector3(player.transform.position.x, player.transform.position.y + offsetY, cameraZLayer);
+        transform.position = new Vector3(transform.position.x, player.transform.position.y + offsetY, cameraZLayer);
     }
 }

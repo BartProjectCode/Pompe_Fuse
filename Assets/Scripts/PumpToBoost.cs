@@ -54,7 +54,7 @@ public class PumpToBoost : MonoBehaviour
         // Debug.Log(total);
 
 
-        Vector2 smokeSpawnPoint = new Vector2(transform.position.x, transform.position.y - offset);
+        Vector2 smokeSpawnPoint = new Vector3(transform.position.x, transform.position.y - offset, -0.4f);
 
         if (mouseY >= sensToBoost)
         {
@@ -93,6 +93,6 @@ public class PumpToBoost : MonoBehaviour
             rocketRb.linearVelocity = rocketRb.linearVelocity.normalized * maxVelocity;
         }
 
-        Debug.Log(mouseY);
+        //Debug.Log(mouseY);
     }
 }
