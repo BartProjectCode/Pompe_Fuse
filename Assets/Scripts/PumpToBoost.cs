@@ -13,20 +13,21 @@ public class PumpToBoost : MonoBehaviour
     public float offset = 1f;
     public float total;
     private float totalMax = 1f;
-
+    
+    public float totalBoost;
+    
+    public LimitBounds limitBounds;
+    public TimeToPump timeToPump;
 
     private void Start()
     {
         rocketRb = GetComponent<Rigidbody2D>();
+        limitBounds = GetComponent<LimitBounds>();
+        timeToPump = GetComponent<TimeToPump>();
     }
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     rocketRb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
-        // }
-
         float mouseY = Input.GetAxis("Mouse Y");
         float mouseX = Input.GetAxis("Mouse X");
 
@@ -41,26 +42,23 @@ public class PumpToBoost : MonoBehaviour
             total = totalMax;
         }
 
-        // if (total <= 0.3f)
-        // {
-        //     total = 0;
-        // }
-
         if (total <= 0 && !canBoost)
         {
             canBoost = true;
         }
 
-        // Debug.Log(total);
 
+        //spawn point de la fumée lors du boost
+        Vector2 smokeSpawnPoint = transform.position - transform.up;
 
-        Vector2 smokeSpawnPoint = new Vector3(transform.position.x, transform.position.y - offset, -0.4f);
-
-        if (mouseY >= sensToBoost)
+        
+        //Lorsqu'on pompe, la fusée est propulsée et fait spawn de la fumée
+        if (mouseY >= sensToBoost && timeToPump.bPumpTime == false)
         {
-            // maxVelocity = 10f;
             rocketRb.AddForce(transform.up * (mouseY * force), ForceMode2D.Impulse);
             Instantiate(smoke, smokeSpawnPoint, gameObject.transform.rotation);
+            smoke.transform.position = new Vector3(smoke.transform.position.x, smoke.transform.position.y,
+                smoke.transform.position.z + 0.4f);
             canBoost = false;
         }
 
@@ -73,26 +71,54 @@ public class PumpToBoost : MonoBehaviour
         //     rocketRb.AddTorque(-1f, ForceMode2D.Force);
         // }
         
-        if (mouseX >= sensToTorque)
+        if (mouseX >= sensToTorque && timeToPump.bPumpTime == false)
         {
             transform.Rotate(0, 0, 1);
         }
-        else if (mouseX <= -sensToTorque)
+        else if (mouseX <= -sensToTorque && timeToPump.bPumpTime == false)
         {
             transform.Rotate(0, 0, -1);
         }
-        // else
-        // {
-        //     rocketRb.totalTorque = 0;
-        // }
 
-
+        
+        //code relié au boost pendant le stop
+        if (timeToPump.bPumpTime == true && mouseY >= sensToBoost)
+        {
+            totalBoost += mouseY;
+        }
+        
+        if (timeToPump.activateBoost == true)
+        {
+            maxVelocity *= 3;
+            rocketRb.AddForce(Vector3.up * (force * totalBoost), ForceMode2D.Impulse);
+            totalBoost = 0;
+            timeToPump.activateBoost = false;
+        }
+        
+        
+        
         //Set une velocity maximale
         if (rocketRb.linearVelocity.magnitude > maxVelocity)
         {
             rocketRb.linearVelocity = rocketRb.linearVelocity.normalized * maxVelocity;
         }
-
-        //Debug.Log(mouseY);
+        
+        SendWhenLimit();
+        
     }
+
+    private void SendWhenLimit()
+    {
+        if (limitBounds.sendLeft == true)
+        {
+            rocketRb.AddForce(Vector2.left * 4, ForceMode2D.Impulse);
+            limitBounds.sendLeft = false;
+        }
+        else if (limitBounds.sendRight == true)
+        {
+            rocketRb.AddForce(Vector2.right * 4, ForceMode2D.Impulse);
+            limitBounds.sendRight = false;
+        }
+    }
+    
 }
