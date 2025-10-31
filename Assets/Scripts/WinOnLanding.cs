@@ -8,6 +8,12 @@ public class WinOnLanding : MonoBehaviour
     public bool isGrounded;
     public float angleToLand;
     public TextMeshProUGUI youWin;
+    public Rigidbody2D rocketRb;
+
+    private void Start()
+    {
+        rocketRb = gameObject.GetComponent<Rigidbody2D>();
+    }
 
     private void Update()
     {
@@ -15,6 +21,16 @@ public class WinOnLanding : MonoBehaviour
         {
             youWin.gameObject.SetActive(true);
         }
+
+        if (isGrounded)
+        {
+            rocketRb.freezeRotation = false;
+        }
+        else
+        {
+            rocketRb.freezeRotation = true;
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -24,9 +40,10 @@ public class WinOnLanding : MonoBehaviour
             isWinGrounded = true;
         }
         
-        if (other.gameObject.CompareTag("Comet") || other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Comet") || other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("WinGround"))
         {
             isGrounded = true;
+            rocketRb.freezeRotation = true;
         }
     }
 

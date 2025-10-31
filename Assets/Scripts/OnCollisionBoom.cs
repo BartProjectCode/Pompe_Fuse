@@ -23,13 +23,13 @@ public class OnCollisionBoom : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Comet") && transform.rotation.z < -winOnLanding.angleToLand || transform.rotation.z > winOnLanding.angleToLand || transform.position.y < other.gameObject.transform.position.y)
-        {
-            lost = true;
-        }
-        else if (other.gameObject.CompareTag("WinGround") && transform.rotation.z < -winOnLanding.angleToLand || transform.rotation.z > winOnLanding.angleToLand || transform.position.y < other.gameObject.transform.position.y)
-        {
-            lost = true;
-        }
+        // if (other.gameObject.CompareTag("Comet") && transform.rotation.z < -winOnLanding.angleToLand || transform.rotation.z > winOnLanding.angleToLand || transform.position.y < other.gameObject.transform.position.y)
+        // {
+        //     lost = true;
+        // }
+        // else if (other.gameObject.CompareTag("WinGround") && transform.rotation.z < -winOnLanding.angleToLand || transform.rotation.z > winOnLanding.angleToLand || transform.position.y < other.gameObject.transform.position.y)
+        // {
+        //     lost = true;
+        // }
     }
 }
