@@ -5,6 +5,7 @@ using TMPro;
 public class WinOnLanding : MonoBehaviour
 {
     public bool isWinGrounded;
+    public bool isGrounded;
     public float angleToLand;
     public TextMeshProUGUI youWin;
 
@@ -21,7 +22,11 @@ public class WinOnLanding : MonoBehaviour
         if (other.gameObject.CompareTag("WinGround") && transform.rotation.z >= -angleToLand && transform.rotation.z <= angleToLand)
         {
             isWinGrounded = true;
-            Debug.Log("WIN!!!!");
+        }
+        
+        if (other.gameObject.CompareTag("Comet") || other.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
         }
     }
 
@@ -30,6 +35,11 @@ public class WinOnLanding : MonoBehaviour
         if (other.gameObject.CompareTag("WinGround"))
         {
             isWinGrounded = false;
+        }
+        
+        if (other.gameObject.CompareTag("Comet") || other.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
         }
     }
 }

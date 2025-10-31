@@ -15,6 +15,7 @@ public class PumpToBoost : MonoBehaviour
     public float total;
     private float totalMax = 1f;
     private float timerBeforeVelocity = 3f;
+    public bool invincible;
 
 
     private bool canDivide;
@@ -22,7 +23,8 @@ public class PumpToBoost : MonoBehaviour
     
     public LimitBounds limitBounds;
     public TimeToPump timeToPump;
-
+    public WinOnLanding winOnLanding;
+    
     private void Start()
     {
         // Screen.lockCursor = true;
@@ -33,6 +35,7 @@ public class PumpToBoost : MonoBehaviour
         rocketRb = GetComponent<Rigidbody2D>();
         limitBounds = GetComponent<LimitBounds>();
         timeToPump = GetComponent<TimeToPump>();
+        winOnLanding = GetComponent<WinOnLanding>();
     }
 
     private void Update()
@@ -87,11 +90,11 @@ public class PumpToBoost : MonoBehaviour
         //     rocketRb.AddTorque(-1f, ForceMode2D.Force);
         // }
         
-        if (mouseX >= sensToTorque && timeToPump.bPumpTime == false)
+        if (mouseX >= sensToTorque && timeToPump.bPumpTime == false && winOnLanding.isGrounded == false)
         {
             transform.Rotate(0, 0, -1);
         }
-        else if (mouseX <= -sensToTorque && timeToPump.bPumpTime == false)
+        else if (mouseX <= -sensToTorque && timeToPump.bPumpTime == false && winOnLanding.isGrounded == false)
         {
             transform.Rotate(0, 0, 1);
         }
