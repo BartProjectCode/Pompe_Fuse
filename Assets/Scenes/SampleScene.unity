@@ -3763,6 +3763,7 @@ GameObject:
   - component: {fileID: 1003717473}
   - component: {fileID: 1003717474}
   - component: {fileID: 1003717475}
+  - component: {fileID: 1003717476}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -3882,9 +3883,11 @@ MonoBehaviour:
   smoke: {fileID: 8437876668500669219, guid: f503dcbb55f878a4d9f99e2093b742cd, type: 3}
   offset: 1
   total: 0
+  invincible: 0
   totalBoost: 0
   limitBounds: {fileID: 0}
   timeToPump: {fileID: 0}
+  winOnLanding: {fileID: 0}
 --- !u!114 &1003717472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3946,8 +3949,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWinGrounded: 0
+  isGrounded: 0
   angleToLand: 40
   youWin: {fileID: 1589809391}
+--- !u!114 &1003717476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003717467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1a41618b88985499d02301e23b6be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winOnLanding: {fileID: 0}
+  lost: 0
 --- !u!1001 &1015928688
 PrefabInstance:
   m_ObjectHideFlags: 0
